@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './App.css';
 import { getNumbers } from './utils';
@@ -18,7 +18,10 @@ export const App: React.FC = () => {
   const [perPage, setPerPage] = useState(perPageParams);
 
   const updateSearchParams = (page: number, perPageValue = perPage) => {
-    setSearchParams({ page: page.toString(), perPage: perPageValue.toString() });
+    setSearchParams({
+      page: page.toString(),
+      perPage: perPageValue.toString(),
+    });
   };
 
   // ця функція буде викликана, коли користувач змінює сторінку
@@ -27,7 +30,7 @@ export const App: React.FC = () => {
       setCurrentPage(page);
       updateSearchParams(page);
     }
-  }
+  };
 
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = startIndex + perPage;
@@ -43,7 +46,8 @@ export const App: React.FC = () => {
             data-cy="perPageSelector"
             id="perPageSelector"
             className="form-control"
-            onChange={(event) => {
+            value={perPage}
+            onChange={event => {
               const newPerPage = +event.target.value;
 
               setPerPage(newPerPage);
@@ -64,7 +68,8 @@ export const App: React.FC = () => {
       </div>
 
       <p className="lead" data-cy="info">
-        Page {currentPage} (items {startIndex + 1} - {Math.min(endIndex, items.length)} of {items.length})
+        Page {currentPage} (items {startIndex + 1} -{' '}
+        {Math.min(endIndex, items.length)} of {items.length})
       </p>
 
       <Pagination
@@ -76,10 +81,11 @@ export const App: React.FC = () => {
 
       <ul>
         {visibleItems.map(item => (
-          <li key={item} data-cy="item">{item}</li>
+          <li key={item} data-cy="item">
+            {item}
+          </li>
         ))}
       </ul>
-
     </div>
   );
 };
